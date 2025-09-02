@@ -43,18 +43,19 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/izzaz_pf_profile:latest
           file: ./Dockerfile
 
-      # Step 6: Set up the SSH agent
-      - name: Start SSH agent
-        uses: webfactory/ssh-agent@v0.5.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      # Step 7: Deploy to Oracle VM via SSH
+      # Step 6: Deploy to Oracle VM via SSH
       - name: Deploy to Oracle VM
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
-            mkdir -p /home/ubuntu/your-app-name
-            cd /home/ubuntu/your-app-name
-            docker compose pull
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            #create dir if doesnt exists
+            mkdir -p /home/ubuntu/pf_microservice/izzaz_pf_profile
+            #nav to dir
+            cd /home/ubuntu/pf_microservice/izzaz_pf_profile
+            #pull docker
+            docker compose pull ${{secrets.DOCKER_USERNAME}}/izzaz_pf_profile
+            # Start the container from the new image
             docker compose up -d
-          EOF
