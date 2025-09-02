@@ -59,6 +59,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
             #create dir if doesnt exists
             mkdir -p /home/${{ secrets.SSH_USERNAME }}/pf_microservice/izzaz_pf_profile
             #nav to dir
