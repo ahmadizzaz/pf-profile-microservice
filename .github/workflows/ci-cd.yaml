@@ -60,9 +60,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             #create dir if doesnt exists
-            mkdir -p /home/${{secrets.SSH_USERNAME}}/pf_microservice/izzaz_pf_profile
+            mkdir -p /home/${{ secrets.SSH_USERNAME }}/pf_microservice/izzaz_pf_profile
             #nav to dir
-            cd /home/${{secrets.SSH_USERNAME}}/pf_microservice/izzaz_pf_profile
+            cd /home/${{ secrets.SSH_USERNAME }}/pf_microservice/izzaz_pf_profile
             #pull docker
             docker compose pull
             # Start the container from the new image
