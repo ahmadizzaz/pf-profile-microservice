@@ -51,8 +51,11 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+#           #create dir if doesnt exists
+            mkdir -p /home/ubuntu/izzaz_pf_profile
+            #nav to dir
             cd /home/ubuntu/izzaz_pf_profile
-            # Pull the new image from Docker Hub
+            #pulll docker
             docker compose pull
             # Start the container from the new image
             docker compose up -d
