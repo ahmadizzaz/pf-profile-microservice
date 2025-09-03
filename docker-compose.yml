@@ -1,7 +1,29 @@
-version: "3.8"
+networks:
+  kong-net:
+    driver: bridge
+
 services:
-  app:
-    image: ${DOCKER_USERNAME}/izzaz_pf_profile:latest
+  #Kong API Gateway
+  kong:
+    image: kong:latest
+    container_name: kong-gateway
+    networks:
+      - kong-net
+    volumes:
+      - ./kong.yml:/usr/local/kong/declarative/kong.yml:ro
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: "/usr/local/kong/declarative/kong.yml"
+      KONG_PROXY_LISTEN: "0.0.0.0:80, 0.0.0.0:443 ssl"
     ports:
-      - "8080:8080"
+      - "80:80" # Public HTTP port
+      - "443:443" # Public HTTPS port
+    restart: always
+  profile-service:
+    container_name: profile-service
+    networks:
+      - kong-net
+    expose:
+      - "8080"
+    image: ${DOCKER_USERNAME}/izzaz_pf_profile:latest
     restart: always
