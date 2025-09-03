@@ -11,6 +11,6 @@ public class ProfileController {
 
     @GetMapping("/hello")
     public ResponseEntity<String> getHelloWorld(){
-        return ResponseEntity.ok("Hello World");
+        return ResponseEntity.ok("Hello World v2");
     }
 }
