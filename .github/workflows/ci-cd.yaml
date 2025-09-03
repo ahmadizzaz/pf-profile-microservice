@@ -43,7 +43,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/izzaz_pf_profile:latest
           file: ./Dockerfile
-      # Step 7: Deploy to Oracle VM via SSH
+      # Step 6: Deploy to Oracle VM via SSH
       - name: Deploy to Oracle VM
         uses: appleboy/ssh-action@v1.1.0
         with:
