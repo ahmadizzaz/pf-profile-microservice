@@ -51,6 +51,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
             #nav to dir
             cd /home/${{ secrets.SSH_USERNAME }}/pf_microservice/
             #pull docker
