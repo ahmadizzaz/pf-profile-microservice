@@ -55,6 +55,6 @@ jobs:
             #nav to dir
             cd /home/${{ secrets.SSH_USERNAME }}/pf_microservice/
             #pull docker
-            docker compose pull
+            docker compose pull profile-service
             # Start the container from the new image
-            docker compose up -d
+            docker compose up -d --no-deps profile-service
